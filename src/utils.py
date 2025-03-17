@@ -72,15 +72,15 @@ def comparative_analysis(sentiment_analyed):
     negative_percentage = (negative_count / total_articles) * 100
     neutral_percentage = (neutral_count / total_articles) * 100
 
-    return [{"positive", positive_percentage}, {"negative", negative_percentage}, {"neutral", neutral_percentage}]
+    return {"positive": positive_percentage, "negative": negative_percentage, "neutral": neutral_percentage}
 
 
 def expose(company_name):
     """Root function which will be exposed"""
     extracted_articles = extract_articles(company_name)
 
-    sentiment_analyed = sentiment_analysis(extracted_articles)
+    sentiment_analyed_articles = sentiment_analysis(extracted_articles)
 
-    comparative_analyed = comparative_analysis(sentiment_analyed)
+    comparative_analyed_score = comparative_analysis(sentiment_analyed_articles)
 
-    return comparative_analyed, sentiment_analyed
+    return comparative_analyed_score, sentiment_analyed_articles
