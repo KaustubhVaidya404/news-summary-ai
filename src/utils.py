@@ -59,9 +59,20 @@ def sentiment_analysis(extracted_articles):
     return articles
 
 
-def comparative_analysis():
+def comparative_analysis(sentiment_analyed):
     """Function to perform comparative sentiment analysis"""
-    pass
+    articles = sentiment_analyed
+
+    total_articles = len(articles)
+    positive_count = len([article for article in articles if article['sentiment']['compound'] > 0.05])
+    negative_count = len([article for article in articles if article['sentiment']['compound'] < -0.05])
+    neutral_count = total_articles - positive_count - negative_count
+
+    positive_percentage = (positive_count / total_articles) * 100
+    negative_percentage = (negative_count / total_articles) * 100
+    neutral_percentage = (neutral_count / total_articles) * 100
+
+    return [{"positive", positive_percentage}, {"negative", negative_percentage}, {"neutral", neutral_percentage}]
 
 
 def expose(company_name):
@@ -70,4 +81,6 @@ def expose(company_name):
 
     sentiment_analyed = sentiment_analysis(extracted_articles)
 
-    return sentiment_analyed
+    comparative_analyed = comparative_analysis(sentiment_analyed)
+
+    return comparative_analyed, sentiment_analyed
