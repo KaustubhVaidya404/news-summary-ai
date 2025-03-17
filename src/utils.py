@@ -1,6 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+
+
+nltk.download('vader_lexicon')
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
@@ -39,17 +45,29 @@ def extract_articles(company_name):
         return f"Failed to fetch page. Status code: {result.status_code} {e}"
 
 
-def sentiment_analysis():
+def sentiment_analysis(extracted_articles):
     """Function to perform sentiment analysis"""
-    pass
+    analyzer = SentimentIntensityAnalyzer()
+
+    articles = extracted_articles
+
+    for article in articles:
+        sentence = article['title'] + article['summary']
+        sentiment = analyzer.polarity_scores(sentence)
+        article.update({'sentiment': sentiment})
+
+    return articles
 
 
 def comparative_analysis():
     """Function to perform comparative sentiment analysis"""
     pass
-    
+
 
 def expose(company_name):
     """Root function which will be exposed"""
-    res = extract_articles(company_name)
-    return res
+    extracted_articles = extract_articles(company_name)
+
+    sentiment_analyed = sentiment_analysis(extracted_articles)
+
+    return sentiment_analyed
