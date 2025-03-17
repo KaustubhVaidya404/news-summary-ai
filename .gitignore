@@ -3,3 +3,5 @@ Lib
 Scripts
 pyvenv.cfg
 .git
+__pychache__
+ src/__pycache__/
