@@ -34,3 +34,11 @@ def comparative_analysis(sentiment_analyed):
     neutral_percentage = (neutral_count / total_articles) * 100
 
     return {"positive": positive_percentage, "negative": negative_percentage, "neutral": neutral_percentage}
+
+
+def analysis(extracted_articles):
+    sentiment_analyed_articles = sentiment_analysis(extracted_articles)
+
+    comparative_analyed_score = comparative_analysis(sentiment_analyed_articles)
+
+    return comparative_analyed_score, sentiment_analyed_articles
