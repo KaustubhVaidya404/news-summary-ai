@@ -7,10 +7,15 @@ headers = {
 }
 
 
+def format_company_name(inp):
+    """Function to normalize the user input"""
+    return inp.replace(" ", "").lower()
+
 def extract_articles(company_name):
     """Function to extract the articles from times of india website"""
 
-    url = f"https://timesofindia.indiatimes.com/topic/{company_name}/news"
+    name = format_company_name(company_name)
+    url = f"https://timesofindia.indiatimes.com/topic/{name}/news"
 
     try:
         result = requests.get(url, headers=headers)
