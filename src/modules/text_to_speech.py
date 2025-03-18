@@ -12,6 +12,7 @@ load_dotenv()
 
 
 def text_to_speech(context):
+    """This function is to translate en to hi and generate text to speech"""
     translator = Translator(to_lang="hi")
     translation = translator.translate(context)
 
