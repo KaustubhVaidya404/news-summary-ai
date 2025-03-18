@@ -27,4 +27,6 @@ def text_to_speech(context):
         output_format="mp3_44100_128",
     )
 
-    return audio
+    audio_data = b"".join(audio)
+
+    return audio_data

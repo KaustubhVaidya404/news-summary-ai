@@ -5,6 +5,10 @@ import plotly.graph_objects as go
 
 from utils import expose
 
+from modules.text_to_speech import text_to_speech
+
+import io
+
 st.title(":blue[Akaike News AI] :newspaper:")
 st.text("👉 The news articles belongs to Time of India")
 st.text("👉 This project is only for educational purposes")
@@ -36,8 +40,14 @@ with st.container():
     )
 
     st.plotly_chart(figure)
+    st.divider()
 
+    id = 1
     for article in articles:
+        if st.button("🗣️", key=f"{id}"):
+            audio_data = text_to_speech(article['title']+article['summary'])
+            audio_buffer = io.BytesIO(audio_data)
+            st.audio(audio_buffer, format="audio/mp3")
         st.subheader(f":blue[{article['title']}]")
         st.caption(article['date'])
         st.subheader(article['summary'])
@@ -62,4 +72,5 @@ with st.container():
                 title="Sentiment Redar Chart"
             )
             st.plotly_chart(fig)
+            id = id + 1
         st.divider()
