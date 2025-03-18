@@ -1,7 +1,12 @@
 
-from .modules.extract_articles import extract_articles
+try:
+    from .modules.extract_articles import extract_articles
 
-from .modules.analysis import analysis
+    from .modules.analysis import analysis
+except:
+    from modules.extract_articles import extract_articles
+
+    from modules.analysis import analysis
 
 
 def expose(company_name):
@@ -9,5 +14,5 @@ def expose(company_name):
     extracted_articles = extract_articles(company_name)
 
     comparative_analyed_score, sentiment_analyed_articles = analysis(extracted_articles)
-    
+
     return comparative_analyed_score, sentiment_analyed_articles
