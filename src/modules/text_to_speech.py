@@ -1,3 +1,5 @@
+"""This module performs text to speech convertion"""
+
 from dotenv import load_dotenv
 
 import os
@@ -12,12 +14,12 @@ load_dotenv()
 
 
 def text_to_speech(context):
-    """This function is to translate en to hi and generate text to speech"""
+    """Function translates en to hi and generate audio data"""
     translator = Translator(to_lang="hi")
     translation = translator.translate(context)
 
     client = ElevenLabs(
-      api_key=os.getenv("ELEVENLABS_API_KEY"),
+        api_key=os.getenv("ELEVENLABS_API_KEY"),
     )
 
     audio = client.text_to_speech.convert(
