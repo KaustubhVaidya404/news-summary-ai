@@ -12,7 +12,7 @@ def expose(company_name):
     """Root function which will be exposed"""
     extracted_articles = extract_articles(company_name)
 
-    comparative_analyed_score, sentiment_analyed_articles = analysis(
+    comparative_analyed_score, sentiment_analyed_articles,  overall_summary = analysis(
         extracted_articles)
 
-    return comparative_analyed_score, sentiment_analyed_articles
+    return comparative_analyed_score, sentiment_analyed_articles, overall_summary

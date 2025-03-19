@@ -20,7 +20,7 @@ def main():
 
     company_name_input = st.text_input("Company Name", "Tesla")
 
-    score, articles = expose(company_name_input)
+    score, articles, summary = expose(company_name_input)
 
     max_sentiment = max(score, key=score.get)
 
@@ -49,7 +49,7 @@ def main():
 
         id = 1
         for article in articles:
-            if st.button("🗣️", key=f"{id}"):
+            if st.button("🗣️", key=f"button_{id}"):
                 audio_data = text_to_speech(
                     article["title"] + article["summary"])
                 audio_buffer = io.BytesIO(audio_data)
@@ -74,9 +74,10 @@ def main():
                     showlegend=False,
                     title="Sentiment Redar Chart",
                 )
-                st.plotly_chart(fig)
+                st.plotly_chart(fig, key=f"chart_{id}")
                 id = id + 1
             st.divider()
+        st.subheader(summary)
 
 
 main()

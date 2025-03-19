@@ -51,5 +51,5 @@ def extract_articles(company_name):
             return articles
         else:
             return "No data found."
-    except e:
+    except:
         return f"Failed to fetch page. Status code: {result.status_code} {e}"
