@@ -6,7 +6,6 @@ from fastapi import FastAPI
 
 from .utils import expose
 
-
 app = FastAPI()
 
 
@@ -15,7 +14,7 @@ def get_data(q: Union[str, None] = None, sentiment_type: Union[str, None] = None
     """GET request which accepts company name and returns response"""
     try:
         score, articles, summary = expose(q)
-        if sentiment_type == None:
+        if sentiment_type is None:
             return {
                 "company": q,
                 "score": score,
@@ -25,13 +24,27 @@ def get_data(q: Union[str, None] = None, sentiment_type: Union[str, None] = None
             }
         else:
             if sentiment_type == "positive":
-                filtered_articles = [article for article in articles if article["sentiment"]["pos"] > 0]
+                filtered_articles = [
+                    article for article in articles
+                    if article["sentiment"]["pos"] > 0
+                ]
             elif sentiment_type == "negative":
-                filtered_articles = [article for article in articles if article["sentiment"]["neg"] > 0]
+                filtered_articles = [
+                    article for article in articles
+                    if article["sentiment"]["neg"] > 0
+                ]
             elif sentiment_type == "neutral":
-                filtered_articles = [article for article in articles if article["sentiment"]["neu"] > 0]
+                filtered_articles = [
+                    article for article in articles
+                    if article["sentiment"]["neu"] > 0
+                ]
             else:
-                return {"msg": f"Invalid sentiment_type: {sentiment_type}. Please use 'positive', 'negative', or 'neutral'."}
+                return {
+                    "msg": (
+                        f"Invalid sentiment_type: {sentiment_type}. "
+                        "Please use 'positive', 'negative', or 'neutral'."
+                    )
+                }
 
             return {
                 "company": q,
@@ -40,5 +53,5 @@ def get_data(q: Union[str, None] = None, sentiment_type: Union[str, None] = None
                 "summary": summary,
                 "articles": filtered_articles
             }
-    except:
-        return {"msg": "Please wait while we fix the error"}
+    except Exception as e:
+        return {"msg": f"An error occurred: {str(e)}"}

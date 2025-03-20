@@ -28,6 +28,6 @@ def text_to_speech(context):
 
         return audio_buffer.read()
 
-    except:
-        print("Error during tts")
+    except Exception as e:
+        print(f"Error during tts {e}")
         return None

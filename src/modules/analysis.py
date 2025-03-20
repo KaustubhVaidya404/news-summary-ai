@@ -34,10 +34,12 @@ def comparative_analysis(sentiment_analyzed):
 
     total_articles = len(articles)
     positive_count = len(
-        [article for article in articles if article["sentiment"]["compound"] > 0.05]
+        [article for article in articles
+         if article["sentiment"]["compound"] > 0.05]
     )
     negative_count = len(
-        [article for article in articles if article["sentiment"]["compound"] < -0.05]
+        [article for article in articles
+         if article["sentiment"]["compound"] < -0.05]
     )
     neutral_count = total_articles - positive_count - negative_count
 
@@ -87,6 +89,12 @@ def analysis(extracted_articles):
     comparative_analyed_score = comparative_analysis(
         sentiment_analyed_articles)
 
-    overall_summary = summary_generation(sentiment_analyed_articles)
+    overall_summary = (
+        summary_generation(sentiment_analyed_articles)
+    )
 
-    return comparative_analyed_score, sentiment_analyed_articles, overall_summary
+    return (
+        comparative_analyed_score,
+        sentiment_analyed_articles,
+        overall_summary
+    )

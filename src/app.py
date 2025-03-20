@@ -21,7 +21,9 @@ def main():
     st.title(":blue[Akaike News AI] :newspaper:")
     st.text("👉 The news articles belongs to Time of India")
     st.text("👉 This project is only for educational purposes")
-    st.markdown("😼 [Github repo](https://github.com/KaustubhVaidya404/news-summary-ai)")
+    st.markdown(
+        "😼 [Github repo](https://github.com/KaustubhVaidya404/news-summary-ai)"
+    )
 
     company_name_input = st.text_input("Company Name", "Tesla")
 
@@ -85,5 +87,6 @@ def main():
                 st.plotly_chart(fig, key=f"chart_{id}")
                 id = id + 1
             st.divider()
+
 
 main()
