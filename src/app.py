@@ -14,9 +14,14 @@ import io
 
 def main():
     """Main thread function for huggingface"""
+    st.set_page_config(
+        page_title="Akaike News AI",
+        page_icon="🎓",
+    )
     st.title(":blue[Akaike News AI] :newspaper:")
     st.text("👉 The news articles belongs to Time of India")
     st.text("👉 This project is only for educational purposes")
+    st.markdown("😼 [Github repo](https://github.com/KaustubhVaidya404/news-summary-ai)")
 
     company_name_input = st.text_input("Company Name", "Tesla")
 

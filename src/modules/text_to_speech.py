@@ -3,9 +3,9 @@
 from dotenv import load_dotenv
 
 import os
+from io import BytesIO
 
-from elevenlabs.client import ElevenLabs
-from elevenlabs import save
+from gtts import gTTS
 
 from translate import Translator
 
@@ -15,20 +15,19 @@ load_dotenv()
 
 def text_to_speech(context):
     """Function translates en to hi and generate audio data"""
-    translator = Translator(to_lang="hi")
-    translation = translator.translate(context)
+    try:
+        translator = Translator(to_lang="hi")
+        translation = translator.translate(context)
 
-    client = ElevenLabs(
-        api_key=os.getenv("ELEVENLABS_API_KEY"),
-    )
+        tts = gTTS(text=translation, lang='hi')
 
-    audio = client.text_to_speech.convert(
-        text=translation,
-        voice_id="JBFqnCBsd6RMkjVDRZzb",
-        model_id="eleven_multilingual_v2",
-        output_format="mp3_44100_128",
-    )
+        audio_buffer = BytesIO()
+        tts.write_to_fp(audio_buffer)
 
-    audio_data = b"".join(audio)
+        audio_buffer.seek(0)
 
-    return audio_data
+        return audio_buffer.read()
+
+    except:
+        print("Error during tts")
+        return None

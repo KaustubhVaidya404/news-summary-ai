@@ -13,6 +13,7 @@ nltk.download('punkt_tab')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
+
 def sentiment_analysis(extracted_articles):
     """Function returns sentiment analysis scrore"""
     analyzer = SentimentIntensityAnalyzer()
@@ -73,7 +74,8 @@ def summary_generation(combined_all_summary):
                 sentence_scores[sentence] += word_freq[word.lower()]
 
     num_sentences = 3
-    summary_sentences = heapq.nlargest(num_sentences, sentence_scores, key=sentence_scores.get)
+    summary_sentences = heapq.nlargest(
+        num_sentences, sentence_scores, key=sentence_scores.get)
     overall_summary = "".join(summary_sentences)
     return overall_summary
 
