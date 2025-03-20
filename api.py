@@ -4,7 +4,7 @@ from typing import Union
 
 from fastapi import FastAPI
 
-from .utils import expose
+from utils import expose
 
 app = FastAPI()
 

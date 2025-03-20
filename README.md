@@ -49,10 +49,10 @@ Below are the instructions for running the Application
 
 ```bash
 # To run the stremlit locally
-streamlit run .\src\app.py
+streamlit run \app.py
 
 # To run the fast api server
-uvicorn src.api:app --reload
+uvicorn api:app --reload
 ```
 
 Stremlit runs on post 8501 and fast api server runs on port 8000
