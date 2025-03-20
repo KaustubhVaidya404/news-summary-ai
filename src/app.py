@@ -51,6 +51,13 @@ def main():
 
         st.plotly_chart(figure)
         st.divider()
+        st.subheader(":blue[Summary]")
+        if st.button("🗣️", key="summary_tts"):
+            audio_data = text_to_speech(summary)
+            audio_buffer = io.BytesIO(audio_data)
+            st.audio(audio_buffer, format="audio/mp3")
+        st.subheader(summary)
+        st.divider()
 
         id = 1
         for article in articles:
@@ -82,7 +89,5 @@ def main():
                 st.plotly_chart(fig, key=f"chart_{id}")
                 id = id + 1
             st.divider()
-        st.subheader(summary)
-
 
 main()

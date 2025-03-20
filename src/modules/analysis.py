@@ -73,7 +73,7 @@ def summary_generation(combined_all_summary):
             if word.lower() in word_freq:
                 sentence_scores[sentence] += word_freq[word.lower()]
 
-    num_sentences = 3
+    num_sentences = 2
     summary_sentences = heapq.nlargest(
         num_sentences, sentence_scores, key=sentence_scores.get)
     overall_summary = "".join(summary_sentences)
