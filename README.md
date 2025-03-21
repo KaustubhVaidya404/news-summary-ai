@@ -52,7 +52,7 @@ Below are the instructions for running the Application
 streamlit run \app.py
 
 # To run the fast api server
-uvicorn api:app --reload
+fastapi run .\api.py
 ```
 
 Stremlit runs on post 8501 and fast api server runs on port 8000
