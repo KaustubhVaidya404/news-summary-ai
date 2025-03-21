@@ -12,11 +12,12 @@ from gtts import gTTS
 from translate import Translator
 
 
+translator = Translator(to_lang="hi")
+
 
 async def text_to_speech(context):
     """Function translates en to hi and generate audio data"""
     try:
-        translator = Translator(to_lang="hi")
         translation = translator.translate(context)
 
         tts = gTTS(text=translation, lang='hi')
@@ -36,16 +37,17 @@ async def text_to_speech(context):
 async def text_to_speech_file(context):
     """
     Function creates a audio file from the text_to_speech
-    and stored in a location with unique id and returns a path to the audio file
+    and stored in a location with unique id
+    returns a path to the audio file
     """
     try:
         buffer_data = await text_to_speech(context)
-        file_location = f"audio/{uuid.uuid4()}.mp3"
+        file_name = uuid.uuid4()
         os.makedirs('audio', exist_ok=True)
-        async with aiofiles.open(file_location, "wb") as f:
+        async with aiofiles.open(f"audio/{file_name}.mp3", "wb") as f:
             await f.write(buffer_data)
 
-        return file_location
+        return file_name
     except Exception as e:
         print(f"Error while creating file {e}")
         return None
