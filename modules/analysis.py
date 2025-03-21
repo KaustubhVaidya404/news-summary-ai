@@ -3,7 +3,11 @@
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk import pos_tag, ne_chunk
+from nltk.corpus import stopwords
+
 from collections import defaultdict
+
 import heapq
 
 
@@ -12,6 +16,10 @@ nltk.download("punkt")
 nltk.download('punkt_tab')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
+nltk.download('averaged_perceptron_tagger_eng')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+nltk.download('stopwords')
 
 
 def sentiment_analysis(extracted_articles):
@@ -82,9 +90,40 @@ def summary_generation(combined_all_summary):
     return overall_summary
 
 
+def extract_topics(extracted_articles):
+    """Function returns topics from the summary"""
+    def tagging(summary):
+        """Function returns the tags"""
+        try:
+            words = word_tokenize(summary)
+            pos_tags = pos_tag(words)
+            topics = [
+                word for word, tag in pos_tags
+                if tag.startswith('NN')
+            ]
+            stop_words = set(stopwords.words('english'))
+            filered_topics = [
+                topic for topic in topics
+                if topic.lower() not in stop_words
+            ]
+            return filered_topics
+        except Exception as e:
+            print(e)
+            return {"msg": "Error during tagging"}
+
+    return_articles = []
+    for article in extracted_articles:
+        summary = article["summary"]
+        tags = tagging(summary)
+        article['topics'] = tags
+        return_articles.append(article)
+    return return_articles
+
+
 def analysis(extracted_articles):
     """Function returns sentement, comparative sentiment and overall summary"""
-    sentiment_analyed_articles = sentiment_analysis(extracted_articles)
+    articles_with_topics = extract_topics(extracted_articles)
+    sentiment_analyed_articles = sentiment_analysis(articles_with_topics)
 
     comparative_analyed_score = comparative_analysis(
         sentiment_analyed_articles)
