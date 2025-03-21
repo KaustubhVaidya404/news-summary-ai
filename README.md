@@ -99,10 +99,16 @@ The sentiment analysis model is powered by VADER (Valence Aware Dictionary and s
 To access get the data from api
 
 ```bash
+# To get response
 curl -X GET "http://localhost:8000/v1/company?q=YourCompanyName" -H "accept: application/json"
 ```
 ```bash
+# To get only the desired response i.e only positive or negative or neutral
 curl -X GET "http://localhost:8000/v1/company?q=YourCompanyName&sentiment_type=positive" -H "accept: application/json"
+```
+```bash
+# Replace the filename with file name you received to download the audio file
+curl -X GET "http://localhost:8000/v1/company/audio/filename" -H "accept: application/json"
 ```
 
 To access the api docs
